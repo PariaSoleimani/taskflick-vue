@@ -9,10 +9,8 @@
         :color="list.color"
       ></list-item>
     </ul>
-    <button
-      class="mt-3 flex cursor-pointer items-center gap-2 text-blue-400 duration-200 hover:text-blue-500"
-    >
-      <i class="ph-bold ph-plus translate-y-[1px]"></i>
+    <button class="mt-3 cursor-pointer text-blue-400 duration-200 hover:text-blue-500">
+      <span class="mr-1 text-xl">+</span>
       <span>New List</span>
     </button>
   </div>

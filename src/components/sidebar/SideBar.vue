@@ -23,6 +23,7 @@
   import ListSection from './ListSection.vue';
   import TagSection from './TagSection.vue';
   import TaskSection from './TaskSection.vue';
+  
   export default {
     components: {TaskSection, ListSection, TagSection},
     props: ['lists', 'tags'],
