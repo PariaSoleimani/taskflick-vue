@@ -13,14 +13,17 @@
         </button>
       </form>
       <task-section @switch-component="$emit('switch-component', comp)"></task-section>
+      <list-section :lists="lists"></list-section>
     </nav>
   </aside>
 </template>
 
 <script>
+  import ListSection from './ListSection.vue';
   import TaskSection from './TaskSection.vue';
   export default {
-    components: {TaskSection},
+    components: {TaskSection, ListSection},
+    props: ['lists'],
     emits: ['switch-component'],
   };
 </script>
