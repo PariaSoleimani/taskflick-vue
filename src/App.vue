@@ -1,21 +1,28 @@
 <template>
-  <div class="mx-auto flex h-screen max-w-7xl items-start gap-3 p-5">
+  <div class="mx-auto flex h-screen max-w-7xl items-start gap-5 p-5">
     <side-bar @switch-component="switchComponent" :lists="lists" :tags="tags"></side-bar>
+    <main class="h-full grow p-5">
+      <component :is="activeComponent" :tasks="tasks" :tags="tags"></component>
+    </main>
   </div>
 </template>
 
 <script>
-  import SideBar from './components/SideBar.vue';
+  import SideBar from './components/sidebar/SideBar.vue';
+  import TaskView from './components/taskview/TaskView.vue';
 
   export default {
-    components: {SideBar},
+    components: {SideBar, TaskView},
     provide() {
       return {
         colors: this.colors,
+        deleteTask: this.deleteTask,
+        toggleCompleted: this.toggleCompleted,
       };
     },
     data() {
       return {
+        activeComponent: 'task-view',
         colors: {
           sky: 'bg-sky-200',
           red: 'bg-red-200',
@@ -44,12 +51,12 @@
         ],
         tags: [
           {
-            id: 0,
+            id: 1,
             name: 'urgent',
             color: 'amber',
           },
           {
-            id: 1,
+            id: 2,
             name: 'important',
             color: 'green',
           },
@@ -69,10 +76,53 @@
             color: 'indigo',
           },
         ],
+        tasks: [
+          {
+            id: 1,
+            title: 'Research content ideas',
+            completed: false,
+            tags: [1, 2, 3, 4, 5],
+          },
+          {
+            id: 2,
+            title: 'Create a database of guest authors',
+            completed: false,
+            tags: [3],
+          },
+          {
+            id: 3,
+            title: "Renew driver's license",
+            completed: false,
+            tags: [],
+          },
+          {
+            id: 4,
+            title: 'Consult accountant',
+            completed: false,
+            tags: [5],
+          },
+          {
+            id: 5,
+            title: 'Print business card',
+            completed: false,
+            tags: [1],
+          },
+        ],
       };
     },
     computed: {},
-    methods: {},
+    methods: {
+      switchComponent(comp) {
+        this.activeComponent = comp;
+      },
+      deleteTask(id) {
+        this.tasks = this.tasks.filter(task => task.id !== id);
+      },
+      toggleCompleted(id) {
+        const selectedTask = this.tasks.find(task => task.id === id);
+        selectedTask.completed = !selectedTask.completed;
+      },
+    },
     watch: {},
   };
 </script>
