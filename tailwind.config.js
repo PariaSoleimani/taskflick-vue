@@ -3,7 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Cabin', 'sans-serif'],
+        sans: ['Cabin', 'Vazirmatn', 'sans-serif'],
+        serif: ['DM Serif Text', 'sans-serif'],
       },
     },
   },
