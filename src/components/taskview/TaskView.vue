@@ -2,9 +2,9 @@
   <div class="h-full w-full text-zinc-800">
     <view-header>
       <template #heading>Today</template>
-      <template #badge>2</template>
+      <template #badge>{{ todayTasksNum }}</template>
     </view-header>
-    <ul class="space-y-2">
+    <ul>
       <task-item
         v-for="task in tasks"
         :key="task.id"
@@ -20,27 +20,22 @@
 
 <script>
   import ViewHeader from '../ui/ViewHeader.vue';
+  import TaskInput from './TaskInput.vue';
   import TaskItem from './TaskItem.vue';
 
   export default {
     components: {
       ViewHeader,
       TaskItem,
+      TaskInput,
     },
     props: ['tasks', 'tags'],
-   
-    // data() {
-    //   return {
-    //     title: null,
-    //     tag: [],
-    //   };
-    // },
+    computed: {
+      todayTasksNum() {
+        return this.tasks.filter(task => !task.completed).length;
+      },
+    },
     methods: {
-      // addNewTask() {
-      //   this.$emit('add-task', {title: this.title, tag: this.tag});
-      //   this.title = '';
-      // },
-      
     },
   };
 </script>
