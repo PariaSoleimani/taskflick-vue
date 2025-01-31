@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto flex h-screen max-w-7xl items-start gap-3 p-5">
-    <side-bar></side-bar>
+    <side-bar @switch-component="switchComponent"></side-bar>
   </div>
 </template>
 
