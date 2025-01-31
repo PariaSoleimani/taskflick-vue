@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto flex h-screen max-w-7xl items-start gap-3 p-5">
-    <side-bar @switch-component="switchComponent" :lists="lists"></side-bar>
+    <side-bar @switch-component="switchComponent" :lists="lists" :tags="tags"></side-bar>
   </div>
 </template>
 
@@ -39,7 +39,34 @@
           {
             id: 2,
             name: 'Work',
-            color: 'rose',
+            color: 'pink',
+          },
+        ],
+        tags: [
+          {
+            id: 0,
+            name: 'urgent',
+            color: 'amber',
+          },
+          {
+            id: 1,
+            name: 'important',
+            color: 'green',
+          },
+          {
+            id: 3,
+            name: 'family',
+            color: 'sky',
+          },
+          {
+            id: 4,
+            name: 'school',
+            color: 'lime',
+          },
+          {
+            id: 5,
+            name: 'entertainment',
+            color: 'indigo',
           },
         ],
       };

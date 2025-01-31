@@ -14,16 +14,18 @@
       </form>
       <task-section @switch-component="$emit('switch-component', comp)"></task-section>
       <list-section :lists="lists"></list-section>
+      <tag-section :tags="tags"></tag-section>
     </nav>
   </aside>
 </template>
 
 <script>
   import ListSection from './ListSection.vue';
+  import TagSection from './TagSection.vue';
   import TaskSection from './TaskSection.vue';
   export default {
-    components: {TaskSection, ListSection},
-    props: ['lists'],
+    components: {TaskSection, ListSection, TagSection},
+    props: ['lists', 'tags'],
     emits: ['switch-component'],
   };
 </script>
