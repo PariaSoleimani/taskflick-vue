@@ -3,9 +3,9 @@
     class="absolute z-10 h-full w-64 shrink-0 rounded-tr-2xl rounded-bl-2xl bg-zinc-100 p-5 transition-transform duration-300 md:relative md:translate-x-0 md:rounded-2xl"
     :class="[openSidebar ? 'translate-x-0' : '-translate-x-full']"
   >
-    <button class="absolute top-1/2 -right-5 cursor-pointer md:hidden" @click="showSidebar">
-      >>>>>>>>
-    </button>
+    <div class="absolute w-3 h-56 rounded-tr-2xl rounded-br-2xl bg-zinc-100 top-1/2 -translate-y-1/2 -right-3 cursor-pointer md:hidden" @click="showSidebar" @touchmove="showSidebar">
+
+    </div>
     <h1 class="mb-5 text-3xl">NoteFlick</h1>
     <nav class="flex flex-col gap-5">
       <form class="flex w-full items-center gap-1 rounded-lg bg-zinc-200 px-1.5 py-1">
