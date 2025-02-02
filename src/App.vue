@@ -2,7 +2,7 @@
   <div class="mx-auto flex h-screen max-w-7xl items-start gap-5 p-5">
     <side-bar @switch-component="switchComponent" :lists="lists" :tags="tags"></side-bar>
     <main class="h-full grow p-5">
-      <component :is="activeComponent" :tasks="tasks" :tags="tags"></component>
+      <component :is="activeComponent" :tasks="tasks" :tags="tags" :lists="lists"></component>
     </main>
   </div>
 </template>
@@ -10,14 +10,16 @@
 <script>
   import SideBar from './components/sidebar/SideBar.vue';
   import TaskView from './components/taskview/TaskView.vue';
+  import NoteView from './components/noteview/NoteView.vue';
 
   export default {
-    components: {SideBar, TaskView},
+    components: {SideBar, TaskView, NoteView},
     provide() {
       return {
         colors: this.colors,
         deleteTask: this.deleteTask,
         toggleCompleted: this.toggleCompleted,
+        addTask: this.addTask,
       };
     },
     data() {
@@ -82,30 +84,35 @@
             title: 'Research content ideas',
             completed: false,
             tags: [1, 2, 3, 4, 5],
+            lists: [1],
           },
           {
             id: 2,
             title: 'Create a database of guest authors',
             completed: false,
             tags: [3],
+            lists: [1],
           },
           {
             id: 3,
             title: "Renew driver's license",
             completed: false,
             tags: [],
+            lists: [2],
           },
           {
             id: 4,
             title: 'Consult accountant',
             completed: false,
             tags: [5],
+            lists: [1, 2],
           },
           {
             id: 5,
             title: 'Print business card',
             completed: false,
             tags: [1],
+            lists: [1, 2],
           },
         ],
       };
@@ -121,6 +128,10 @@
       toggleCompleted(id) {
         const selectedTask = this.tasks.find(task => task.id === id);
         selectedTask.completed = !selectedTask.completed;
+      },
+      addTask(title, tags, lists) {
+        const newTask = {id: 10, title: title, tags: tags, lists: lists, completed: false};
+        this.tasks.push(newTask);
       },
     },
     watch: {},

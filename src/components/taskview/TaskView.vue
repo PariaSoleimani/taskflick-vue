@@ -2,8 +2,9 @@
   <div class="h-full w-full text-zinc-800">
     <view-header>
       <template #heading>Today</template>
-      <template #badge>{{ todayTasksNum }}</template>
+      <template #badge>{{ todayTasksCount }}</template>
     </view-header>
+    <task-input :tags="tags" :lists="lists"></task-input>
     <ul>
       <task-item
         v-for="task in tasks"
@@ -11,8 +12,10 @@
         :id="task.id"
         :title="task.title"
         :task-tags="task.tags"
+        :task-lists="task.lists"
         :completed="task.completed"
         :tags="tags"
+        :lists="lists"
       ></task-item>
     </ul>
   </div>
@@ -29,13 +32,11 @@
       TaskItem,
       TaskInput,
     },
-    props: ['tasks', 'tags'],
+    props: ['tasks', 'tags', 'lists'],
     computed: {
-      todayTasksNum() {
+      todayTasksCount() {
         return this.tasks.filter(task => !task.completed).length;
       },
-    },
-    methods: {
     },
   };
 </script>

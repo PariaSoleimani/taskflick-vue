@@ -2,11 +2,7 @@
   <li class="group flex flex-col rounded-sm p-3 transition-all duration-200 hover:bg-zinc-200">
     <div class="flex items-center justify-between">
       <label class="flex w-full items-center gap-2">
-        <input
-          type="checkbox"
-          @change="toggleCompleted(id)"
-          class="size-4 accent-zinc-500"
-        />
+        <input type="checkbox" @change="toggleCompleted(id)" class="size-4 accent-zinc-500" />
         <p :class="{'line-through opacity-50': completed}" class="text-lg font-light">
           {{ title }}
         </p>
@@ -30,16 +26,27 @@
         </li>
       </ul>
     </div>
+    <div class="mt-3 w-full" v-if="taskLists.length" :class="{'opacity-50': completed}">
+      <ul class="flex flex-wrap gap-1">
+        <li class="rounded text-xs flex items-center gap-1" v-for="list in mappedLists" :key="list.id">
+          <span class="size-4 block rounded-sm" :class="colors[list.color]"></span>
+          <span>{{ list.name }}</span>
+        </li>
+      </ul>
+    </div>
   </li>
 </template>
 
 <script>
   export default {
-    props: ['id', 'title', 'taskTags', 'tags', 'completed'],
+    props: ['id', 'title', 'taskTags', 'taskLists', 'tags', 'completed', 'lists'],
     inject: ['deleteTask', 'colors', 'toggleCompleted'],
     computed: {
       mappedTags() {
         return this.taskTags.map(tagId => this.tags.find(tag => tag.id === tagId));
+      },
+      mappedLists() {
+        return this.taskLists.map(listId => this.lists.find(list => list.id === listId));
       },
     },
   };
