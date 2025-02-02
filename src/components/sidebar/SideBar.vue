@@ -1,6 +1,6 @@
 <template>
-  <aside class="h-full w-64 rounded-lg bg-zinc-100 p-5">
-    <h1 class="mb-5 font-serif text-3xl">NoteFlick</h1>
+  <aside class="h-full w-64 rounded-2xl bg-zinc-100 p-5">
+    <h1 class="mb-5 text-3xl">NoteFlick</h1>
     <nav class="flex flex-col gap-5">
       <form class="flex w-full items-center gap-1 rounded-lg bg-zinc-200 px-1.5 py-1">
         <input
@@ -12,7 +12,23 @@
           <i class="ph ph-magnifying-glass text-lg text-zinc-400"></i>
         </button>
       </form>
-      <task-section @switch-component="$emit('switch-component', comp)"></task-section>
+
+      <ul class="space-y-1">
+        <li
+          class="flex w-full cursor-pointer items-center gap-3 rounded-md px-2 py-1 transition-all duration-200 hover:bg-zinc-200"
+          @click="$emit('switch-component', 'TaskView')"
+        >
+          <i class="ph ph-calendar-check text-2xl"></i>
+          <span>Tasks</span>
+        </li>
+        <li
+          class="flex cursor-pointer items-center gap-3 rounded-md px-2 py-1 transition-all duration-200 hover:bg-zinc-200"
+          @click="$emit('switch-component', 'NoteView')"
+        >
+          <i class="ph ph-note text-2xl"></i>
+          <span>Sticky Notes</span>
+        </li>
+      </ul>
       <list-section :lists="lists"></list-section>
       <tag-section :tags="tags"></tag-section>
     </nav>
@@ -22,10 +38,9 @@
 <script>
   import ListSection from './ListSection.vue';
   import TagSection from './TagSection.vue';
-  import TaskSection from './TaskSection.vue';
-  
+
   export default {
-    components: {TaskSection, ListSection, TagSection},
+    components: {ListSection, TagSection},
     props: ['lists', 'tags'],
     emits: ['switch-component'],
   };

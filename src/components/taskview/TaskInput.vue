@@ -1,25 +1,28 @@
 <template>
-  <form @submit.prevent="addNewTask" class="mb-3 w-full rounded-md border border-zinc-200 p-2">
+  <form
+    @submit.prevent="addNewTask"
+    class="mb-3 w-full rounded-xl border border-zinc-200 px-3 py-2"
+  >
     <div class="flex items-center gap-2">
-      <button
-        :disabled="!title"
-        class="text-md cursor-pointer text-xl font-semibold text-zinc-600 transition-all duration-200 disabled:text-zinc-300"
-        type="submit"
-      >
-        +
-      </button>
       <input
         class="w-full bg-transparent font-medium text-zinc-800 placeholder:text-zinc-400 focus:outline-none"
         type="text"
         placeholder="Add New Task"
         v-model="title"
       />
+      <button
+        :disabled="!title"
+        class="text-md group cursor-pointer text-xl font-semibold text-zinc-600 transition-all duration-200 disabled:text-zinc-300"
+        type="submit"
+      >
+        <i class="ph ph-check group-disabled:hidden"></i>
+      </button>
     </div>
 
-    <ul v-show="title && tags" class="mt-2 flex flex-wrap items-center gap-1">
+    <ul v-show="title && allTags" class="mt-2 flex flex-wrap items-center gap-1">
       <li><p class="mr-1 text-xs text-zinc-500">Tags:</p></li>
       <task-tag
-        v-for="tag in tags"
+        v-for="tag in allTags"
         :key="tag.id"
         :name="tag.name"
         :color="tag.color"
@@ -29,10 +32,10 @@
       ></task-tag>
     </ul>
 
-    <ul v-show="title && lists" class="mt-2 flex flex-wrap items-center gap-1">
+    <ul v-show="title && allLists" class="mt-2 flex flex-wrap items-center gap-1">
       <li><p class="mr-1 text-xs text-zinc-500">Lists:</p></li>
       <task-list
-        v-for="list in lists"
+        v-for="list in allLists"
         :key="list.id"
         :name="list.name"
         :color="list.color"
@@ -50,7 +53,7 @@
 
   export default {
     components: {TaskTag, TaskList},
-    props: ['tags', 'lists'],
+    props: ['allTags', 'allLists'],
     inject: ['addTask'],
     data() {
       return {

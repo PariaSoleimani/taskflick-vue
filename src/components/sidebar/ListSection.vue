@@ -1,10 +1,11 @@
 <template>
   <div class="text-zinc-800">
-    <h3 class="mb-2 font-serif text-lg">Lists</h3>
+    <h3 class="mb-2 text-lg">Lists</h3>
     <ul class="space-y-1">
       <list-item
         v-for="list in lists"
         :key="list.id"
+        :id="list.id"
         :name="list.name"
         :color="list.color"
       ></list-item>

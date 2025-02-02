@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-auto flex h-screen max-w-7xl items-start gap-5 p-5">
+  <div class="mx-auto flex h-dvh max-w-7xl items-start gap-5 p-5 font-sans">
     <side-bar @switch-component="switchComponent" :lists="lists" :tags="tags"></side-bar>
-    <main class="h-full grow p-5">
+    <main class="h-full p-5 grow">
       <component
         :is="activeComponent"
         :tasks="tasks"
@@ -31,7 +31,7 @@
     },
     data() {
       return {
-        activeComponent: 'task-view',
+        activeComponent: 'TaskView',
         colors: {
           sky: 'bg-sky-200',
           red: 'bg-red-200',
@@ -44,45 +44,34 @@
           lime: 'bg-lime-200',
           orange: 'bg-orange-200',
           indigo: 'bg-indigo-200',
-          purple: 'bg-purple-200',
         },
         lists: [
           {
             id: 1,
             name: 'Personal',
-            color: 'sky',
+            color: 'amber',
           },
           {
             id: 2,
             name: 'Work',
-            color: 'pink',
+            color: 'purple',
           },
         ],
         tags: [
           {
             id: 1,
-            name: 'urgent',
-            color: 'amber',
+            name: 'Urgent',
+            color: 'rose',
           },
           {
             id: 2,
-            name: 'important',
+            name: 'Important',
             color: 'green',
           },
           {
             id: 3,
-            name: 'family',
-            color: 'sky',
-          },
-          {
-            id: 4,
-            name: 'school',
+            name: 'Unfinished',
             color: 'lime',
-          },
-          {
-            id: 5,
-            name: 'entertainment',
-            color: 'indigo',
           },
         ],
         tasks: [
@@ -90,7 +79,7 @@
             id: 1,
             title: 'Research content ideas',
             completed: false,
-            tags: [1, 2, 3, 4, 5],
+            tags: [1, 2, 3],
             lists: [1],
           },
           {
@@ -104,14 +93,14 @@
             id: 3,
             title: "Renew driver's license",
             completed: false,
-            tags: [],
+            tags: [2],
             lists: [2],
           },
           {
             id: 4,
             title: 'Consult accountant',
             completed: false,
-            tags: [5],
+            tags: [1],
             lists: [1, 2],
           },
           {
@@ -119,7 +108,7 @@
             title: 'Print business card',
             completed: false,
             tags: [1],
-            lists: [1, 2],
+            lists: [1, 3],
           },
         ],
         notes: [
@@ -139,20 +128,21 @@
         this.activeComponent = comp;
       },
       deleteTask(id) {
-        this.tasks = this.tasks.filter(task => task.id !== id);
+        const index = this.tasks.findIndex(task => task.id === id);
+        if (index !== -1) this.tasks.splice(index, 1);
       },
       toggleCompleted(id) {
-        const selectedTask = this.tasks.find(task => task.id === id);
-        selectedTask.completed = !selectedTask.completed;
+        const task = this.tasks.find(task => task.id === id);
+        if (task) task.completed = !task.completed;
       },
       addTask(title, tags, lists) {
-        const newTask = {id: 10, title: title, tags: tags, lists: lists, completed: false};
+        const newTask = {id: 10, title, tags, lists, completed: false};
         this.tasks.push(newTask);
       },
       deleteNote(id) {
-        this.notes = this.notes.filter(note => note.id !== id);
+        const index = this.notes.findIndex(note => note.id === id);
+        if (index !== -1) this.notes.splice(index, 1);
       },
     },
-    watch: {},
   };
 </script>

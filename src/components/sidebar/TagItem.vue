@@ -1,17 +1,15 @@
 <template>
-  <li class="rounded px-2 py-1" :class="getBgColor">
-    <span>{{ name }}</span>
+  <li
+    class="cursor-pointer rounded-lg px-2 py-1 transition-all duration-200 active:scale-95"
+    :class="colors[color]"
+  >
+    {{ name }}
   </li>
 </template>
 
 <script>
   export default {
-    props: ['name', 'color'],
+    props: ['name', 'color', 'id'],
     inject: ['colors'],
-    computed: {
-      getBgColor() {
-        return this.colors[this.color];
-      },
-    },
   };
 </script>
