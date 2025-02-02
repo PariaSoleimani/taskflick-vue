@@ -36,6 +36,7 @@
         :key="list.id"
         :name="list.name"
         :color="list.color"
+        :id="list.id"
         @add-list="addList"
         @remove-list="removeList"
       ></task-list>

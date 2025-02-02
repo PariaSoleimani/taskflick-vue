@@ -32,6 +32,7 @@
       },
       unselectList(id) {
         this.selected = false;
+
         this.$emit('remove-list', id);
       },
     },
