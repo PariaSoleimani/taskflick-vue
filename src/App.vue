@@ -2,7 +2,13 @@
   <div class="mx-auto flex h-screen max-w-7xl items-start gap-5 p-5">
     <side-bar @switch-component="switchComponent" :lists="lists" :tags="tags"></side-bar>
     <main class="h-full grow p-5">
-      <component :is="activeComponent" :tasks="tasks" :tags="tags" :lists="lists"></component>
+      <component
+        :is="activeComponent"
+        :tasks="tasks"
+        :tags="tags"
+        :lists="lists"
+        :notes="notes"
+      ></component>
     </main>
   </div>
 </template>
@@ -20,6 +26,7 @@
         deleteTask: this.deleteTask,
         toggleCompleted: this.toggleCompleted,
         addTask: this.addTask,
+        deleteNote: this.deleteNote,
       };
     },
     data() {
@@ -115,6 +122,15 @@
             lists: [1, 2],
           },
         ],
+        notes: [
+          {
+            id: 1,
+            title: 'Hello',
+            description: 'This is the first note',
+            color: 'rose',
+            tags: [1, 2],
+          },
+        ],
       };
     },
     computed: {},
@@ -132,6 +148,9 @@
       addTask(title, tags, lists) {
         const newTask = {id: 10, title: title, tags: tags, lists: lists, completed: false};
         this.tasks.push(newTask);
+      },
+      deleteNote(id) {
+        this.notes = this.notes.filter(note => note.id !== id);
       },
     },
     watch: {},
