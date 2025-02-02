@@ -1,7 +1,7 @@
 <template>
   <div
     :class="colors[color]"
-    class="group relative h-fit max-w-64 min-w-52 break-inside-avoid rounded-lg p-4 text-zinc-800"
+    class="group relative h-fit max-w-full md:max-w-96 min-w-52 break-inside-avoid rounded-lg p-4 text-zinc-800"
   >
     <button
       @click="deleteNote(id)"

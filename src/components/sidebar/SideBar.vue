@@ -1,5 +1,11 @@
 <template>
-  <aside class="h-full w-64 rounded-2xl bg-zinc-100 p-5">
+  <aside
+    class="absolute z-10 h-full w-64 shrink-0 rounded-tr-2xl rounded-bl-2xl bg-zinc-100 p-5 transition-transform duration-300 md:relative md:translate-x-0 md:rounded-2xl"
+    :class="[openSidebar ? 'translate-x-0' : '-translate-x-full']"
+  >
+    <button class="absolute top-1/2 -right-5 cursor-pointer md:hidden" @click="showSidebar">
+      >>>>>>>>
+    </button>
     <h1 class="mb-5 text-3xl">NoteFlick</h1>
     <nav class="flex flex-col gap-5">
       <form class="flex w-full items-center gap-1 rounded-lg bg-zinc-200 px-1.5 py-1">
@@ -42,6 +48,17 @@
   export default {
     components: {ListSection, TagSection},
     props: ['lists', 'tags'],
-    emits: ['switch-component'],
+    emits: ['switch-component', 'show-sidebar'],
+    data() {
+      return {
+        openSidebar: false,
+      };
+    },
+    methods: {
+      showSidebar() {
+        this.openSidebar = !this.openSidebar;
+        this.$emit('show-sidebar', this.openSidebar);
+      },
+    },
   };
 </script>

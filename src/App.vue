@@ -1,7 +1,15 @@
 <template>
-  <div class="mx-auto flex h-dvh max-w-7xl items-start gap-5 p-5 font-sans">
-    <side-bar @switch-component="switchComponent" :lists="lists" :tags="tags"></side-bar>
-    <main class="h-full grow p-5">
+  <div class="mx-auto flex h-dvh max-w-7xl items-start overflow-x-hidden font-sans md:gap-5 md:p-5">
+    <side-bar
+      :lists="lists"
+      :tags="tags"
+      @switch-component="switchComponent"
+      @show-sidebar="showSidebar"
+    ></side-bar>
+    <main
+      class="h-full grow overflow-y-hidden transition-transform duration-300 p-5 md:p-0"
+      :class="[openSidebar ? 'translate-x-68' : 'translate-x-0']"
+    >
       <component
         :is="activeComponent"
         :tasks="tasks"
@@ -32,6 +40,7 @@
     },
     data() {
       return {
+        openSidebar: false,
         activeComponent: 'TaskView',
         colors: {
           sky: 'bg-sky-200',
@@ -147,6 +156,9 @@
     },
     computed: {},
     methods: {
+      showSidebar(openSidebar) {
+        this.openSidebar = openSidebar;
+      },
       switchComponent(comp) {
         this.activeComponent = comp;
       },

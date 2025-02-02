@@ -1,23 +1,25 @@
 <template>
-  <div class="h-full w-full text-zinc-800">
+  <div class="flex h-full flex-col text-zinc-800">
     <view-header>
-      <template #heading>Today</template>
+      <template #heading>Tasks</template>
       <template #badge>{{ tasksCount }}</template>
     </view-header>
     <task-input :all-tags="tags" :all-lists="lists"></task-input>
-    <ul>
-      <task-item
-        v-for="task in tasks"
-        :key="task.id"
-        :id="task.id"
-        :title="task.title"
-        :tags="task.tags"
-        :lists="task.lists"
-        :completed="task.completed"
-        :all-tags="tags"
-        :all-lists="lists"
-      ></task-item>
-    </ul>
+    <div class="overflow-y-scroll pr-3">
+      <ul>
+        <task-item
+          v-for="task in tasks"
+          :key="task.id"
+          :id="task.id"
+          :title="task.title"
+          :tags="task.tags"
+          :lists="task.lists"
+          :completed="task.completed"
+          :all-tags="tags"
+          :all-lists="lists"
+        ></task-item>
+      </ul>
+    </div>
   </div>
 </template>
 
