@@ -61,12 +61,12 @@
         this.addTask(this.title, this.taskTags, this.taskLists);
         this.title = null;
         this.taskTags = [];
-        this.taskList = [];
-        console.log(this.taskTags);
-        console.log(this.taskLists);
+        this.taskLists = [];
       },
       addTag(id) {
-        this.taskTags.push(id);
+        if (!this.taskTags.includes(id)) {
+          this.taskTags.push(id);
+        }
       },
       removeTag(id) {
         const index = this.taskTags.indexOf(id);
@@ -75,7 +75,9 @@
         }
       },
       addList(id) {
-        this.taskLists.push(id);
+        if (!this.taskLists.includes(id)) {
+          this.taskLists.push(id);
+        }
       },
       removeList(id) {
         const index = this.taskLists.indexOf(id);
