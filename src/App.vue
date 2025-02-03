@@ -41,6 +41,8 @@
         addTask: this.addTask,
         deleteNote: this.deleteNote,
         addNote: this.addNote,
+        addTag: this.addTag,
+        addList: this.addList,
       };
     },
     data() {
@@ -188,6 +190,14 @@
         color = color ?? 'gray';
         const newNote = {id: Date.now(), title, description, color, tags};
         this.notes.push(newNote);
+      },
+      addTag(name, color) {
+        const tag = {id: Date.now(), name, color};
+        this.tags.push(tag);
+      },
+      addList(name, color) {
+        const list = {id: Date.now(), name, color};
+        this.lists.push(list);
       },
     },
   };
