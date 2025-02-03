@@ -5,9 +5,10 @@
       :tags="tags"
       @switch-component="switchComponent"
       @show-sidebar="showSidebar"
+      @search-request="showResults"
     ></side-bar>
     <main
-      class="h-full grow overflow-y-hidden transition-transform duration-300 p-5 md:p-0"
+      class="h-full grow overflow-y-hidden p-5 transition-transform duration-300 md:p-0"
       :class="[openSidebar ? 'translate-x-68' : 'translate-x-0']"
     >
       <component
@@ -16,6 +17,9 @@
         :tags="tags"
         :lists="lists"
         :notes="notes"
+        :filteredNotes="filteredNotes"
+        :filteredTasks="filteredTasks"
+        @switch-component="switchComponent"
       ></component>
     </main>
   </div>
@@ -25,9 +29,10 @@
   import SideBar from './components/sidebar/SideBar.vue';
   import TaskView from './components/taskview/TaskView.vue';
   import NoteView from './components/noteview/NoteView.vue';
+  import SearchView from './components/searchview/SearchView.vue';
 
   export default {
-    components: {SideBar, TaskView, NoteView},
+    components: {SideBar, TaskView, NoteView, SearchView},
     provide() {
       return {
         colors: this.colors,
@@ -55,6 +60,8 @@
           orange: 'bg-orange-200',
           indigo: 'bg-indigo-200',
         },
+        filteredNotes: null,
+        filteredTasks: null,
         lists: [
           {
             id: 1,
@@ -161,6 +168,18 @@
       },
       switchComponent(comp) {
         this.activeComponent = comp;
+      },
+      showResults(searchQuery) {
+        this.filteredNotes =
+          this.notes?.filter(
+            note =>
+              note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              note.description.toLowerCase().includes(searchQuery.toLowerCase()),
+          );
+        this.filteredTasks =
+          this.tasks?.filter(task =>
+            task.title.toLowerCase().includes(searchQuery.toLowerCase()),
+          );
       },
       deleteTask(id) {
         const index = this.tasks.findIndex(task => task.id === id);

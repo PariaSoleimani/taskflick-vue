@@ -3,16 +3,23 @@
     class="absolute z-10 h-full w-64 shrink-0 rounded-tr-2xl rounded-bl-2xl bg-zinc-100 p-5 transition-transform duration-300 md:relative md:translate-x-0 md:rounded-2xl"
     :class="[openSidebar ? 'translate-x-0' : '-translate-x-full']"
   >
-    <div class="absolute w-3 h-56 rounded-tr-2xl rounded-br-2xl bg-zinc-100 top-1/2 -translate-y-1/2 -right-3 cursor-pointer md:hidden" @click="showSidebar" @touchmove="showSidebar">
-
-    </div>
+    <div
+      class="absolute top-1/2 -right-3 h-56 w-3 -translate-y-1/2 cursor-pointer rounded-tr-2xl rounded-br-2xl bg-zinc-100 md:hidden"
+      @click="showSidebar"
+      @touchmove="showSidebar"
+    ></div>
     <h1 class="mb-5 text-3xl">NoteFlick</h1>
     <nav class="flex flex-col gap-5">
-      <form class="flex w-full items-center gap-1 rounded-lg bg-zinc-200 px-1.5 py-1">
+      <form
+        class="flex w-full items-center gap-1 rounded-lg bg-zinc-200 px-1.5 py-1"
+        @submit.prevent="submitForm"
+      >
         <input
           type="text"
           placeholder="Search"
           class="w-full text-zinc-800 placeholder:text-zinc-400 focus:outline-none"
+          v-model="searchQuery"
+          @keyup.enter="submitForm"
         />
         <button class="flex cursor-pointer items-center justify-center" type="submit">
           <i class="ph ph-magnifying-glass text-lg text-zinc-400"></i>
@@ -48,16 +55,21 @@
   export default {
     components: {ListSection, TagSection},
     props: ['lists', 'tags'],
-    emits: ['switch-component', 'show-sidebar'],
+    emits: ['switch-component', 'show-sidebar', 'search-request'],
     data() {
       return {
         openSidebar: false,
+        searchQuery: null,
       };
     },
     methods: {
       showSidebar() {
         this.openSidebar = !this.openSidebar;
         this.$emit('show-sidebar', this.openSidebar);
+      },
+      submitForm() {
+        this.$emit('search-request', this.searchQuery);
+        this.$emit('switch-component', 'SearchView');
       },
     },
   };
