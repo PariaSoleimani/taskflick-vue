@@ -1,7 +1,7 @@
 <template>
   <li
-    class="item-center flex gap-1 rounded-full border border-zinc-200 px-1.5 py-0.5 text-xs text-zinc-300 transition-all duration-200"
-    :class="getBgColor"
+    class="item-center flex gap-1 rounded-full px-1.5 py-0.5 text-xs text-zinc-300 transition-all duration-200"
+    :class="changeBgColor"
   >
     <button
       v-if="selected"
@@ -9,7 +9,7 @@
       type="button"
       @click="unselectTag(id)"
     >
-      <i class="ph ph-x text-zinc-600"></i>
+      <i class="ph-bold ph-x text-zinc-700"></i>
     </button>
     <span @click="selectTag(id)" class="cursor-pointer">{{ name }}</span>
   </li>
@@ -17,8 +17,7 @@
 
 <script>
   export default {
-    props: ['id', 'name', 'color'],
-    emits: ['add-tag', 'remove-tag'],
+    props: ['id', 'name', 'color', 'addTag', 'removeTag'],
     inject: ['colors'],
     data() {
       return {
@@ -28,18 +27,18 @@
     methods: {
       selectTag(id) {
         this.selected = true;
-        this.$emit('add-tag', id);
+        this.addTag(id);
       },
       unselectTag(id) {
         this.selected = false;
-        this.$emit('remove-tag', id);
+        this.removeTag(id);
       },
     },
     computed: {
-      getBgColor() {
+      changeBgColor() {
         return this.selected
-          ? [this.colors[this.color], 'text-zinc-700', 'border-transparent']
-          : [];
+          ? [this.colors[this.color], 'text-zinc-700', 'border', 'border-transparent']
+          : ['border', 'border-zinc-200'];
       },
     },
   };

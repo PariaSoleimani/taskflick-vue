@@ -4,42 +4,43 @@
     :class="[openSidebar ? 'translate-x-0' : '-translate-x-full']"
   >
     <div
-      class="absolute top-1/2 -right-3 h-56 w-3 -translate-y-1/2 cursor-pointer rounded-tr-2xl rounded-br-2xl bg-zinc-100 md:hidden"
+      class="absolute top-1/2 -right-3 h-72 w-4 -translate-y-1/2 cursor-pointer rounded-tr-2xl rounded-br-2xl bg-zinc-100 md:hidden"
       @click="showSidebar"
       @touchmove="showSidebar"
     ></div>
-    <h1 class="mb-5 text-3xl">NoteFlick</h1>
+    <h1 class="mb-5 font-serif text-2xl md:text-3xl">NoteFlick</h1>
     <nav class="flex flex-col gap-5">
       <form
-        class="flex w-full items-center gap-1 rounded-lg bg-zinc-200 px-1.5 py-1"
+        class="flex w-full items-center gap-1 rounded-xl bg-zinc-50 px-2 py-1.5"
         @submit.prevent="submitForm"
       >
         <input
           type="text"
           placeholder="Search"
-          class="w-full text-zinc-800 placeholder:text-zinc-400 focus:outline-none"
+          class="w-full placeholder:text-sm placeholder:text-zinc-300 focus:outline-none md:text-lg md:placeholder:text-base"
           v-model="searchQuery"
-          @keyup.enter="submitForm"
         />
-        <button class="flex cursor-pointer items-center justify-center" type="submit">
-          <i class="ph ph-magnifying-glass text-lg text-zinc-400"></i>
+        <button class="group text-md cursor-pointer md:text-xl font-semibold" type="submit">
+          <i
+            class="ph ph-magnifying-glass text-zinc-400 transition-all duration-300"
+            :class="{'text-zinc-800': searchQuery}"
+          ></i>
         </button>
       </form>
-
-      <ul class="space-y-1">
+      <ul class="space-y-2">
         <li
-          class="flex w-full cursor-pointer items-center gap-3 rounded-md px-2 py-1 transition-all duration-200 hover:bg-zinc-200"
+          class="flex cursor-pointer items-center gap-1.5 transition-all duration-200"
           @click="$emit('switch-component', 'TaskView')"
         >
           <i class="ph ph-calendar-check text-2xl"></i>
           <span>Tasks</span>
         </li>
         <li
-          class="flex cursor-pointer items-center gap-3 rounded-md px-2 py-1 transition-all duration-200 hover:bg-zinc-200"
+          class="flex cursor-pointer items-center gap-1.5 transition-all duration-200"
           @click="$emit('switch-component', 'NoteView')"
         >
           <i class="ph ph-note text-2xl"></i>
-          <span>Sticky Notes</span>
+          <span>Notes</span>
         </li>
       </ul>
       <list-section :lists="lists"></list-section>

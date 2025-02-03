@@ -1,26 +1,26 @@
 <template>
-  <div class="mx-auto flex h-dvh max-w-7xl items-start overflow-x-hidden font-sans md:gap-5 md:p-5">
+  <div class="mx-auto flex h-dvh max-w-7xl items-start overflow-x-hidden md:gap-5 md:p-5">
     <side-bar
       :lists="lists"
       :tags="tags"
       @switch-component="switchComponent"
       @show-sidebar="showSidebar"
-      @search-request="showResults"
+      @search-request="searchResults"
     ></side-bar>
     <main
-      class="h-full grow overflow-y-hidden p-5 transition-transform duration-300 md:p-0"
+      class="h-full grow p-5 transition-transform duration-300"
       :class="[openSidebar ? 'translate-x-68' : 'translate-x-0']"
     >
-      <component
-        :is="activeComponent"
-        :tasks="tasks"
-        :tags="tags"
-        :lists="lists"
-        :notes="notes"
-        :filteredNotes="filteredNotes"
-        :filteredTasks="filteredTasks"
-        @switch-component="switchComponent"
-      ></component>
+      <keep-alive>
+        <component
+          :is="activeComponent"
+          :tasks="tasks"
+          :tags="tags"
+          :lists="lists"
+          :notes="notes"
+          :searchQuery="searchQuery"
+        ></component>
+      </keep-alive>
     </main>
   </div>
 </template>
@@ -60,8 +60,7 @@
           orange: 'bg-orange-200',
           indigo: 'bg-indigo-200',
         },
-        filteredNotes: null,
-        filteredTasks: null,
+        searchQuery: null,
         lists: [
           {
             id: 1,
@@ -72,6 +71,11 @@
             id: 2,
             name: 'Work',
             color: 'purple',
+          },
+          {
+            id: 3,
+            name: 'School',
+            color: 'sky',
           },
         ],
         tags: [
@@ -88,7 +92,12 @@
           {
             id: 3,
             name: 'Unfinished',
-            color: 'lime',
+            color: 'indigo',
+          },
+          {
+            id: 4,
+            name: 'Optional',
+            color: 'orange',
           },
         ],
         tasks: [
@@ -97,21 +106,21 @@
             title: 'Research content ideas',
             completed: false,
             tags: [1, 2, 3],
-            lists: [1],
+            lists: [2],
           },
           {
             id: 2,
             title: 'Create a database of guest authors',
             completed: false,
             tags: [3],
-            lists: [1],
+            lists: [2],
           },
           {
             id: 3,
             title: "Renew driver's license",
             completed: false,
             tags: [2],
-            lists: [2],
+            lists: [1],
           },
           {
             id: 4,
@@ -132,32 +141,18 @@
           {
             id: 1,
             title: 'Hello',
-            description: 'This is the first note',
-            color: 'sky',
-            tags: [1, 2],
+            description: 'This is the first note!',
+            color: 'amber',
+            tags: [2],
           },
           {
             id: 2,
             title: 'Adding new notes',
             description:
-              'To add new notes, press the plus button on the bottom right corner of the page!',
-            color: 'indigo',
-            tags: [2],
+              'To add new notes, press the the above input! You can set title, description, assign tags and set a color for your note background',
+            color: 'gray',
+            tags: [4],
           },
-          // {
-          //   id: 3,
-          //   title: 'Adding new notes',
-          //   description: 'To add new notes, press the plus button on the bottom right corner of the page!',
-          //   color: 'indigo',
-          //   tags: [2],
-          // },
-          // {
-          //   id: 4,
-          //   title: 'Adding new notes',
-          //   description: 'To add new notes, press the plus button on the bottom right corner of the page!',
-          //   color: 'indigo',
-          //   tags: [2],
-          // },
         ],
       };
     },
@@ -169,17 +164,8 @@
       switchComponent(comp) {
         this.activeComponent = comp;
       },
-      showResults(searchQuery) {
-        this.filteredNotes =
-          this.notes?.filter(
-            note =>
-              note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              note.description.toLowerCase().includes(searchQuery.toLowerCase()),
-          );
-        this.filteredTasks =
-          this.tasks?.filter(task =>
-            task.title.toLowerCase().includes(searchQuery.toLowerCase()),
-          );
+      searchResults(searchQuery) {
+        this.searchQuery = searchQuery;
       },
       deleteTask(id) {
         const index = this.tasks.findIndex(task => task.id === id);
@@ -190,15 +176,17 @@
         if (task) task.completed = !task.completed;
       },
       addTask(title, tags, lists) {
-        const newTask = {id: 10, title, tags, lists, completed: false};
+        const newTask = {id: Date.now(), title, tags, lists, completed: false};
         this.tasks.push(newTask);
+        console.log(newTask);
       },
       deleteNote(id) {
         const index = this.notes.findIndex(note => note.id === id);
         if (index !== -1) this.notes.splice(index, 1);
       },
       addNote(title, description, color, tags) {
-        const newNote = {id: 10, title, description, color, tags};
+        color = color ?? 'gray';
+        const newNote = {id: Date.now(), title, description, color, tags};
         this.notes.push(newNote);
       },
     },

@@ -1,7 +1,7 @@
 <template>
-  <div class="text-zinc-800">
-    <h3 class="mb-2 text-lg">Lists</h3>
-    <ul class="space-y-1">
+  <div>
+    <h3 class="mb-2 text-xs md:text-sm uppercase font-bold">Lists</h3>
+    <ul class="space-y-2">
       <list-item
         v-for="list in lists"
         :key="list.id"
@@ -10,8 +10,8 @@
         :color="list.color"
       ></list-item>
     </ul>
-    <button class="mt-3 cursor-pointer text-blue-400 duration-200 hover:text-blue-500">
-      <span class="mr-1 text-xl">+</span>
+    <button class="mt-2 cursor-pointer text-zinc-500 duration-200 hover:text-zinc-700 flex items-center gap-1">
+      <span class="text-2xl -translate-y-[1px]">+</span>
       <span>New List</span>
     </button>
   </div>

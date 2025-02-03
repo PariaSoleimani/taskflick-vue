@@ -1,9 +1,9 @@
 <template>
   <li
-    class="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-zinc-200 active:scale-95"
+    class="flex cursor-pointer items-center gap-1.5 active:scale-95 duration-200"
   >
-    <span :class="colors[color]" class="size-5 rounded-sm"></span>
-    <span>{{ name }}</span>
+    <span :class="colors[color]" class="size-4 md:size-5 rounded-sm"></span>
+    <span class="text-sm">{{ name }}</span>
   </li>
 </template>
 

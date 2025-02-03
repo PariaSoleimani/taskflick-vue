@@ -1,53 +1,54 @@
 <template>
   <form
     @submit.prevent="addNewNote"
-    class="mb-3 w-full overflow-clip rounded-xl border border-zinc-200"
+    class="mb-5 w-full rounded-xl border border-zinc-200 px-3 py-2"
   >
-    <div class="flex w-full flex-col items-start gap-2 px-3 pt-2" :class="applyColor">
-      <div class="flex w-full items-start gap-2">
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center gap-2">
         <input
-          class="w-full grow bg-transparent font-medium text-zinc-800 placeholder:text-zinc-400 focus:outline-none"
+          class="w-full bg-transparent placeholder:text-sm placeholder:text-zinc-300 focus:outline-none md:text-lg md:placeholder:text-base"
           type="text"
-          placeholder="Add note title"
+          placeholder="Add Note Title"
           v-model="title"
         />
-        <button
-          :disabled="!title"
-          class="text-md group cursor-pointer text-xl font-semibold text-zinc-600 transition-all duration-200 disabled:text-zinc-300"
-          type="submit"
-          aria-label="Save note"
-        >
-          <i class="ph ph-check group-disabled:hidden"></i>
+        <button class="text-md cursor-pointer text-xl font-semibold" type="submit">
+          <i class="ph ph-check" :class="{hidden: !(title || description)}"></i>
         </button>
       </div>
       <textarea
+        ref="textArea"
         v-model="description"
-        class="w-full resize-none overflow-hidden bg-transparent text-sm text-zinc-700 placeholder:text-zinc-400 focus:outline-none"
+        class="w-full resize-none overflow-hidden bg-transparent text-xs text-zinc-700 placeholder:text-sm placeholder:text-zinc-300 focus:outline-none md:text-sm md:placeholder:text-base"
         placeholder="Take your note!"
+        @input="autoResize"
+        rows="1"
       ></textarea>
-    </div>
-    <div class="px-3 py-2" v-if="title">
-      <ul v-show="title && tags" class="mt-2 flex flex-wrap items-center gap-1">
-        <li><p class="mr-1 text-xs text-zinc-500">Tags:</p></li>
-        <task-tag
-          v-for="tag in tags"
-          :key="tag.id"
-          :name="tag.name"
-          :color="tag.color"
-          :id="tag.id"
-          @add-tag="addTag"
-          @remove-tag="removeTag"
-        ></task-tag>
-      </ul>
-      <ul class="mt-3 flex items-center gap-1.5" v-show="title && colors">
-        <li
-          class="size-5 cursor-pointer rounded-md"
-          v-for="(value, key) in colors"
-          :key="key"
-          :class="value"
-          @click="selectColor(key)"
-        ></li>
-      </ul>
+      <div v-if="title || description">
+        <ul v-if="(title || description) && tags" class="flex flex-wrap items-center gap-1">
+          <li><span class="mr-1 text-xs text-zinc-600 md:text-sm">Tags:</span></li>
+          <task-tag
+            v-for="tag in tags"
+            :key="tag.id"
+            :id="tag.id"
+            :name="tag.name"
+            :color="tag.color"
+            :add-tag="addTag"
+            :remove-tag="removeTag"
+          ></task-tag>
+        </ul>
+        <ul class="mt-3 flex items-center gap-1.5" v-if="(title || description) && colors">
+          <li v-for="(value, key) in colors" :key="key">
+            <input
+              type="radio"
+              v-model="color"
+              :value="key"
+              class="size-5 cursor-pointer appearance-none rounded-md"
+              :class="[value, color === key ? 'outline-1 outline-zinc-400' : '']"
+              @click="toggleSelection(key)"
+            />
+          </li>
+        </ul>
+      </div>
     </div>
   </form>
 </template>
@@ -65,6 +66,7 @@
         description: '',
         color: null,
         noteTags: [],
+        selectedColor: false,
       };
     },
     methods: {
@@ -78,24 +80,20 @@
         }
       },
       addNewNote() {
-        if (!this.color) {
-          this.addNote(this.title, this.description, 'gray', this.noteTags);
-        } else {
+        if (this.title || this.description) {
           this.addNote(this.title, this.description, this.color, this.noteTags);
         }
-
         this.title = '';
         this.description = '';
         this.color = null;
         this.noteTags = [];
       },
-      selectColor(key) {
-        this.color = key;
+      toggleSelection(key) {
+        this.color = this.color === key ? null : key;
       },
-    },
-    computed: {
-      applyColor() {
-        return this.colors[this.color];
+      autoResize() {
+        const textarea = this.$refs.textArea;
+        textarea.style.height = `${textarea.scrollHeight}px`;
       },
     },
   };

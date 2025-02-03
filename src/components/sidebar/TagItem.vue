@@ -1,6 +1,6 @@
 <template>
   <li
-    class="cursor-pointer rounded-lg px-2 py-1 transition-all duration-200 active:scale-95"
+    class="cursor-pointer rounded-lg px-1.5 py-1 transition-all duration-200 active:scale-95 text-sm"
     :class="colors[color]"
   >
     {{ name }}
