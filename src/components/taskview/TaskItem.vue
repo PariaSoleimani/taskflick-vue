@@ -14,7 +14,7 @@
         </p>
       </label>
       <button
-        class="hidden cursor-pointer items-center justify-center text-zinc-700 group-hover:flex"
+        class="md:hidden cursor-pointer items-center justify-center text-zinc-500 group-hover:flex flex"
         @click="deleteTask(id)"
       >
         <i class="ph-bold ph-x"></i>

@@ -5,7 +5,7 @@
   >
     <button
       @click="deleteNote(id)"
-      class="absolute top-4 right-4 hidden cursor-pointer group-hover:block"
+      class="absolute top-4 right-4 flex md:hidden cursor-pointer text-zinc-500 group-hover:flex "
     >
       <i class="ph-bold ph-x"></i>
     </button>
