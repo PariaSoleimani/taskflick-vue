@@ -2,7 +2,8 @@
 
 NoteFlick is a dynamic web application designed to help users capture, organize, and manage their notes and tasks effortlessly. The app provides a clean and intuitive interface for creating, editing, and organizing notes and to-do lists. The goal is to offer a seamless and visually pleasing experience for all your productivity needs.
 
-<!-- ![Project Screenshot](src/assets/screenshot.png) -->
+![Project Screenshot](src/assets/noteflick-screenshot1.png)
+![Project Screenshot](src/assets/noteflick-screenshot2.png)
 
 ## Key Features
 
@@ -24,7 +25,6 @@ NoteFlick is a dynamic web application designed to help users capture, organize,
 
 - **Tailwind CSS:** For utility-first, responsive styling.
 
-- **Vue Router:** For seamless navigation within the app.
 
 #### Tools
 
