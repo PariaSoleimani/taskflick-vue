@@ -1,17 +1,17 @@
 <template>
   <aside
-    class="absolute z-10 h-full w-64 shrink-0 rounded-tr-2xl rounded-bl-2xl bg-zinc-100 p-5 transition-transform duration-300 md:relative md:translate-x-0 md:rounded-2xl"
+    class="absolute z-10 h-full w-64 shrink-0 rounded-tr-2xl rounded-bl-2xl bg-zinc-200 p-5 transition-transform duration-300 md:relative md:translate-x-0 md:rounded-2xl"
     :class="[openSidebar ? 'translate-x-0' : '-translate-x-full']"
   >
     <div
-      class="absolute top-1/2 -right-3 h-72 w-4 -translate-y-1/2 cursor-pointer rounded-tr-2xl rounded-br-2xl bg-zinc-100 md:hidden"
+      class="absolute top-1/2 -right-3 h-96 w-5 -translate-y-1/2 cursor-pointer rounded-tr-2xl rounded-br-2xl bg-zinc-200 md:hidden"
       @click="showSidebar"
       @touchmove="showSidebar"
     ></div>
     <h1 class="mb-5 font-serif text-2xl md:text-3xl">NoteFlick</h1>
     <nav class="flex flex-col gap-5">
       <form
-        class="flex w-full items-center gap-1 rounded-xl bg-zinc-50 px-2 py-1.5"
+        class="flex w-full items-center gap-1 rounded-xl bg-zinc-100 px-2 py-1.5"
         @submit.prevent="submitForm"
       >
         <input

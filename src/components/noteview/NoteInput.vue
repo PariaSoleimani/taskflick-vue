@@ -21,7 +21,7 @@
         class="w-full resize-none overflow-hidden bg-transparent text-xs text-zinc-700 placeholder:text-sm placeholder:text-zinc-300 focus:outline-none md:text-sm md:placeholder:text-base"
         placeholder="Take your note!"
         @input="autoResize"
-        rows="1"
+        rows="2"
       ></textarea>
       <div v-if="title || description">
         <ul v-if="(title || description) && tags" class="flex flex-wrap items-center gap-1">
